@@ -1,0 +1,138 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "layouts",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.14.1",
+      "toolsId": "311ce121-f2d0-4083-bfd0-0ac7120e7fea"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+			"viewName": "layouts.view.App",
+			"type": "XML",
+			"async": false
+		},
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.126.0",
+      "libs": {
+        "sap.m": {},
+        "sap.f": {},
+        "sap.ui.core": {},        
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {},
+				"sap.uxap": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "layouts.i18n.i18n"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "layouts.view",
+				"controlId": "flexibleColumnLayout",
+				"transition": "slide",
+				"async": true
+			},
+			"routes": [
+        {
+					"pattern": "page2",
+					"name": "page2",
+					"target": "page2",
+					"layout": "EndColumnFullScreen"
+				},
+				{
+					"pattern": ":layout:",
+					"name": "Master",
+					"target": [
+						"Master",
+						"Detail"
+					]
+				},
+				{
+					"pattern": "Detail/{product}/{layout}",
+					"name": "Detail",
+					"target": [
+						"Master",
+						"Detail"
+					]
+				},
+				{
+					"pattern": "Detail/{product}/detailDetail/{supplier}/{layout}",
+					"name": "detailDetail",
+					"target": [
+						"Master",
+						"Detail",
+						"detailDetail"
+					]
+				}
+			],
+			"targets": {
+				"Master": {
+					"name": "Master",
+					"controlAggregation": "beginColumnPages"
+				},
+				"Detail": {
+					"name": "Detail",
+					"controlAggregation": "midColumnPages"
+				},
+				"detailDetail": {
+					"name": "DetailDetail",
+					"controlAggregation": "endColumnPages"
+				},
+				"page2": {
+					"name": "AboutPage",
+					"controlAggregation": "endColumnPages"
+				}
+			}
+		}
+  }
+}
